@@ -1,70 +1,127 @@
-# Getting Started with Create React App
+# MetalMindTech Agency — Frontend (`metalmindtech-agency-front`)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Luxurious dark-theme AI agency landing page for **www.metalmindtech.com**.
+Built on React 19 + Tailwind + shadcn/ui. Lead capture is handled by a
+**Vercel serverless function** that forwards submissions to your inbox via
+[Resend](https://resend.com) — no FastAPI / MongoDB backend required for
+production.
 
-## Available Scripts
+The Forge (`ark.metalmindtech.com`) is a separate deployment and is linked
+from the navigation, hero, final CTA and footer.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+| Layer | Tech |
+|---|---|
+| Frontend | React 19, Create React App (craco), TailwindCSS, shadcn/ui, sonner |
+| Fonts | Cabinet Grotesk (Fontshare) + IBM Plex Sans/Mono (Google Fonts) |
+| Lead capture | `/api/leads` Vercel Serverless Function (Node 20) → Resend |
+| Hosting | Vercel (frontend + serverless function in one project) |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Vercel Deployment — Path B (recommended, self-contained)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Import the repository
 
-### `npm run build`
+1. In Vercel, click **Add New → Project** and import
+   `techshare101/metalmindtech-agency-front`.
+2. **Framework Preset**: `Create React App`
+3. **Root Directory**: leave at `./` if this repo's `package.json` is at
+   the root. If you push the entire `/app` folder of the Emergent project,
+   set Root Directory to `frontend` instead.
+4. **Build Command**: `yarn build`
+5. **Install Command**: `yarn install`
+6. **Output Directory**: `build`
+7. **Node.js Version**: `20.x`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> A `vercel.json` is already included with the SPA rewrite rule and serverless
+> function memory/timeout settings — Vercel will auto-apply it.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2. Set environment variables (Project → Settings → Environment Variables)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Apply each variable to **Production**, **Preview** and **Development**.
 
-### `npm run eject`
+| Key | Required? | Example |
+|---|---|---|
+| `REACT_APP_BACKEND_URL` | optional | *leave empty* — the frontend will then call same-origin `/api/leads` and hit the serverless function. Only set this if you split the backend onto another host. |
+| `RESEND_API_KEY` | **required** | `re_xxxxxxxxxxxxxxxxxxxxx` (from https://resend.com/api-keys) |
+| `LEAD_NOTIFY_FROM` | **required** | `MetalMindTech Agency <leads@metalmindtech.com>` — must be a **verified domain** in Resend |
+| `LEAD_NOTIFY_TO` | **required** | `kodjo@metalmindtech.com` (or comma-separated list) |
+| `LEAD_NOTIFY_BCC` | optional | `archive@metalmindtech.com` |
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+After editing env vars, **redeploy** so they're baked in (CRA reads
+`REACT_APP_*` at build time).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3. Add the custom domain
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Vercel → Domains → add `www.metalmindtech.com` (CNAME → `cname.vercel-dns.com`).
+2. Add `metalmindtech.com` (apex) — Vercel issues A records or an ALIAS.
+3. In your DNS provider, set the records exactly as Vercel instructs.
+4. Mark `www` as the primary; Vercel will redirect apex → `www` automatically.
+5. **Do not touch** `ark.metalmindtech.com` — that is The Forge and is hosted
+   elsewhere.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## Local development
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+yarn install
+cp .env.example .env.local
+# Optionally:
+# REACT_APP_BACKEND_URL=http://localhost:8001   # if running the FastAPI backend
+yarn start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The app runs at `http://localhost:3000`. The `api/leads.js` serverless
+function is **not** executed locally by `yarn start` — to test it locally,
+install the Vercel CLI (`npm i -g vercel`) and run `vercel dev`.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## How `/api/leads` works
 
-### Analyzing the Bundle Size
+1. The lead-capture dialog (`src/components/LeadFormDialog.jsx`) submits a
+   JSON `POST` to `${API}/leads` where `API` resolves to:
+   - `https://<your-vercel-domain>/api` when `REACT_APP_BACKEND_URL` is empty
+     (Path B — same-origin serverless), or
+   - `<REACT_APP_BACKEND_URL>/api` when set (split deployment / dev).
+2. `api/leads.js` validates the payload, formats a luxury HTML email,
+   sends it via Resend with `replyTo` set to the submitter, and returns the
+   same JSON shape the FastAPI backend would have returned. **No data is
+   persisted server-side** in Path B — every lead is in your inbox.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+If you later want persistence (Mongo, Notion, Airtable, etc.), extend
+`api/leads.js` — the function already returns the full lead record.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Structure
 
-### Advanced Configuration
+```
+.
+├── api/
+│   └── leads.js              # Vercel serverless function (Resend email)
+├── public/
+├── src/
+│   ├── App.js
+│   ├── pages/Home.jsx
+│   ├── components/           # Hero, AuditOffer, Guarantee, Framework,
+│   │                         # FounderLetter, FAQ, FinalCTA, LeadFormDialog…
+│   ├── components/ui/        # shadcn primitives
+│   └── lib/constants.js      # FORGE_URL + API base resolution
+├── .env.example
+├── vercel.json               # SPA rewrites + function config
+├── tailwind.config.js
+├── package.json
+└── README.md
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+© MetalMindTech. All outcomes reserved.
