@@ -1,0 +1,75 @@
+{
+  "theme": "Dark",
+  "archetype": "Archetype 4 (Swiss & High-Contrast) + Archetype 5 (Jewel & Luxury)",
+  "rationale": "The brand requires an elite, dark-themed, sophisticated, and results-focused 'boardroom' aesthetic. The combination of Swiss authority (sharpness, grid-focus, contrast) with Jewel & Luxury (deep obsidian, subtle molten copper accents) directly answers the 'CEO/Founder' audience requirement while subtly echoing the parent brand 'The Forge' without being overly artistic.",
+  "typography": {
+    "primary_heading_font": "Cabinet Grotesk",
+    "secondary_heading_font": "Cabinet Grotesk",
+    "body_font": "IBM Plex Sans",
+    "rationale": "Cabinet Grotesk offers an authoritative, high-end business feel, distinct from generic sans-serifs, projecting elite competence. IBM Plex Sans provides exceptional technical readability."
+  },
+  "colors": {
+    "background_primary": "#0A0A0A",
+    "background_secondary": "#121212",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#A3A3A3",
+    "accent_primary": "#CC5500", 
+    "accent_primary_hover": "#E67E22",
+    "accent_muted": "rgba(204, 85, 0, 0.15)",
+    "border_subtle": "rgba(255, 255, 255, 0.1)",
+    "prohibited_colors": [
+      "#9D4CDD",
+      "#1B93A4",
+      "#7351B7",
+      "Generic purple-blue gradients",
+      "Pure #000000",
+      "Neon greens/pinks"
+    ]
+  },
+  "spacing_scale": "Generous Spacing: p-6 to p-32. Use tight padding (p-4, gap-4) exclusively in the data-dense 'Revenue Extraction Audit' card. Otherwise, allow content to breathe (py-24 or py-32 for major sections).",
+  "motion_guidelines": {
+    "hover_states": "Crisp and subtle. Buttons should slightly lift (-translate-y-0.5) with an increased inner border glow rather than muddy drop shadows.",
+    "scroll_reveal": "Elements should fade in with a very slight upward motion (translate-y-4) on scroll using framer-motion. No aggressive bouncy effects.",
+    "tracing_beam": "Use for the $997 Audit card to draw focus and indicate elite, active tech."
+  },
+  "component_guidelines": {
+    "navigation": "Crystal glassmorphism (backdrop-blur-xl bg-black/60) with a strict bottom border (border-white/10). Explicit visual separation for 'The Forge' link pointing to ark.metalmindtech.com (e.g., subtle molten copper text or thin outline button).",
+    "hero_section": "Dark textured background (overlay on hero image: bg-black/50 to bg-black/70). Heavy bold heading (text-5xl md:text-6xl). 'Undeniable Outcome' promise front and center. Dual CTAs (Primary solid copper, Secondary outlined transparent).",
+    "offer_card_997": "Bento-style or stark Tracing Beam card. Needs high contrast. Dark background (bg-[#121212]) with 1px solid border (border-white/10). Itemized value stack using check icons (Hormozi-style).",
+    "revenue_recovery_guarantee": "Risk-reversal language. Use a subtle warning/alert motif adapted to luxury (e.g., soft copper/gold glow behind the section).",
+    "outcome_framework": "3-4 step process. Grid layout (grid-cols-1 md:grid-cols-3 or 4). High precision, technical layout (Swiss pattern).",
+    "social_proof": "Row of desaturated/white logos. Grayscale outcome numbers (e.g., '+$2.4M ARR').",
+    "founder_letter": "Asymmetrical layout (Bezos Day 1 style). Portrait on left, text on right. Use typography to simulate an executive memo (incorporating a subtle monospace font for dates/labels).",
+    "faq": "Shadcn accordion, stripped down. No background boxes. Just 1px bottom borders separating questions.",
+    "lead_capture_form": "Minimalist input fields (bg-transparent, border-white/20, text-white). Focus state must increase border to solid white/copper. Data goes to MongoDB.",
+    "buttons": "Sharp edges or minimal radius (rounded-sm). No pill-shaped buttons."
+  },
+  "image_urls": {
+    "social_proof_logos": {
+      "url": "https://images.unsplash.com/photo-1705988142466-e468bc654eeb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwxfHxjb21wYW55JTIwbG9nbyUyMHdoaXRlJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE3NzgyMjE5MTF8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Abstract white company logo replacement for social proof."
+    },
+    "hero_background": {
+      "url": "https://images.unsplash.com/photo-1604591263412-b6d3ea4e2aac?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGRhcmslMjBtZXRhbCUyMHRleHR1cmV8ZW58MHx8fHwxNzc4MjY4NTkyfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Abstract dark metal texture. Perfect for hero overlay."
+    },
+    "founder_portrait": {
+      "url": "https://images.unsplash.com/photo-1717023281538-296e93299e3a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwxfHxleGVjdXRpdmUlMjBjZW8lMjBwb3J0cmFpdCUyMGJsYWNrJTIwYW5kJTIwd2hpdGV8ZW58MHx8fHwxNzc4MjY4NTkyfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Executive CEO portrait in black and white."
+    },
+    "secondary_background": {
+      "url": "https://images.unsplash.com/photo-1765767056681-9583b29007cf?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODh8MHwxfHNlYXJjaHwxfHxkYXJrJTIwbHV4dXJ5JTIwbW9kZXJuJTIwYXJjaGl0ZWN0dXJlJTIwaW50ZXJpb3J8ZW58MHx8fHwxNzc4MjY4NTk2fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Dark luxury architecture interior. Use as a subtle backdrop for the guarantee or framework section."
+    }
+  },
+  "testing_attributes": {
+    "instruction": "All interactive elements MUST include a data-testid attribute in kebab-case based on role. e.g., data-testid='audit-cta-button', data-testid='forge-nav-link'."
+  },
+  "anti_patterns": [
+    "Do NOT use Inter, Roboto, or standard web sans-serifs for headings.",
+    "Do NOT use thick gradients across entire backgrounds.",
+    "Do NOT center-align everything (use asymmetry to create tension).",
+    "Do NOT use pure #000000; stick to #0A0A0A or #121212.",
+    "Do NOT create rounded, bubbly UI. Keep radii tight (rounded-none or rounded-sm)."
+  ]
+}
