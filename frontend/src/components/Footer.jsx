@@ -29,6 +29,7 @@ export default function Footer() {
     const year = new Date().getFullYear();
     return (
         <footer
+            id="footer"
             data-testid="site-footer"
             className="border-t border-white/10 bg-[#0A0A0A] pt-16"
         >
@@ -41,8 +42,18 @@ export default function Footer() {
                             partner for CEOs and Founders. We do not consult.
                             We extract revenue.
                         </p>
+                        <p className="mt-4 text-[13px] text-white/50">
+                            For direct partner inquiries:{" "}
+                            <a
+                                href="mailto:contact@metalmindtech.com"
+                                data-testid="footer-contact-email"
+                                className="text-[#E6843A] transition-colors hover:text-white"
+                            >
+                                contact@metalmindtech.com
+                            </a>
+                        </p>
                         <p className="font-mono-plex mt-6 text-[10px] uppercase tracking-[0.3em] text-white/35">
-                            metalmindtech.com · Year XII · Day 1
+                            metalmindtech.com
                         </p>
                     </div>
 
@@ -99,7 +110,7 @@ export default function Footer() {
 
                 <div className="flex flex-col items-start justify-between gap-3 py-7 md:flex-row md:items-center">
                     <p className="font-mono-plex text-[10px] uppercase tracking-[0.28em] text-white/40">
-                        © {year} MetalMindTech. All outcomes reserved.
+                        &copy; {year} MetalMindTech. All outcomes reserved.
                     </p>
                     <p className="font-mono-plex text-[10px] uppercase tracking-[0.28em] text-white/30">
                         Built in obsidian. Sharpened in The Forge.

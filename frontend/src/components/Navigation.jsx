@@ -10,6 +10,7 @@ const navLinks = [
     { label: "Guarantee", href: "#guarantee", testid: "nav-link-guarantee" },
     { label: "Letter", href: "#letter", testid: "nav-link-letter" },
     { label: "FAQ", href: "#faq", testid: "nav-link-faq" },
+    { label: "Contact", href: "#footer", testid: "nav-link-contact" },
 ];
 
 export default function Navigation() {
