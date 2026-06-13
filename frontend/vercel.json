@@ -5,6 +5,8 @@
   "outputDirectory": "build",
   "installCommand": "yarn install",
   "rewrites": [
+    { "source": "/schemaforge", "destination": "https://medspa-schemaforge.vercel.app" },
+    { "source": "/schemaforge/:match*", "destination": "https://medspa-schemaforge.vercel.app/:match*" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
   "headers": [
