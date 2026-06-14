@@ -4,8 +4,23 @@
   "buildCommand": "yarn build",
   "outputDirectory": "build",
   "installCommand": "yarn install",
+  "redirects": [
+    {
+      "source": "/schemaforge/:match(.*)",
+      "has": [{ "type": "query", "key": "status", "value": "success" }],
+      "destination": "https://medspa-schemaforge.vercel.app/:match?status=success",
+      "permanent": false
+    },
+    {
+      "source": "/schemaforge",
+      "has": [{ "type": "query", "key": "status", "value": "success" }],
+      "destination": "https://medspa-schemaforge.vercel.app/?status=success",
+      "permanent": false
+    }
+  ],
   "rewrites": [
-    { "source": "/schemaforge", "destination": "https://medspa-schemaforge.vercel.app" },
+    { "source": "/schemaforge", "destination": "https://medspa-schemaforge.vercel.app/" },
+    { "source": "/schemaforge/", "destination": "https://medspa-schemaforge.vercel.app/" },
     { "source": "/schemaforge/:match*", "destination": "https://medspa-schemaforge.vercel.app/:match*" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
