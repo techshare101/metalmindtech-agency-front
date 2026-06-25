@@ -2,6 +2,7 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
 import Home from "@/pages/Home";
+import TwinCitiesAIDepartment from "@/pages/TwinCitiesAIDepartment";
 import { LeadFormProvider } from "@/components/LeadFormProvider";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
                 <LeadFormProvider>
                     <Routes>
                         <Route path="/" element={<Home />} />
+                        <Route path="/twin-cities-ai-department" element={<TwinCitiesAIDepartment />} />
                         <Route path="*" element={<Home />} />
                     </Routes>
                 </LeadFormProvider>
