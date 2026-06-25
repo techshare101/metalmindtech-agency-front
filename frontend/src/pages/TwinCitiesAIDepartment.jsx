@@ -218,7 +218,8 @@ export default function TwinCitiesAIDepartment() {
                     <div className="reveal mx-auto mt-14 max-w-4xl" style={{ transitionDelay: "120ms" }}>
                         <div
                             data-testid="tc-demo-video-placeholder"
-                            className="group relative flex aspect-video cursor-pointer items-center justify-center overflow-hidden border border-orange-500/20 bg-[#0a0a0f]"
+                            onClick={() => window.open('https://aiflicks-engine.vercel.app/demo', '_blank')}
+                            className="group relative flex aspect-video cursor-pointer items-center justify-center overflow-hidden border border-orange-500/20 bg-[#0a0a0f] hover:border-orange-500/50 transition-all"
                             style={{
                                 background: "linear-gradient(135deg, #0a0a0f 0%, #0f0f18 50%, #0a0a0f 100%)",
                             }}
@@ -518,3 +519,4 @@ function AuditFeature({ text }) {
         </div>
     );
 }
+
